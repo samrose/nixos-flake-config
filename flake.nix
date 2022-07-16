@@ -14,7 +14,9 @@
         inherit system;
         specialArgs = {inherit inputs;};
         modules = [
-          ({pkgs, ...}: {
+          ({modulesPath, pkgs, ...}: {
+            imports = [ "${modulesPath}/virtualisation/amazon-image.nix" ];
+  	    ec2.hvm = true;
             networking.firewall.allowedTCPPorts = [ 80 443 ];
             services.nginx.enable = true;
           })
