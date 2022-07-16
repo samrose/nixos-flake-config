@@ -21,7 +21,7 @@
           }: {
             imports = ["${modulesPath}/virtualisation/amazon-image.nix"];
             ec2.hvm = true;
-            networking.firewall.allowedTCPPorts = [80 443 4646];
+            networking.firewall.allowedTCPPorts = [80 443 8080 4646];
             services.nginx.enable = true;
             services.nomad.enable = true;
             services.nomad.settings = {
