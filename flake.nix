@@ -10,15 +10,20 @@
     system = "x86_64-linux";
   in {
     nixosConfigurations = {
-      nginx-server = nixpkgs.lib.nixosSystem {
+      nomad-nginx-server = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit inputs;};
         modules = [
-          ({modulesPath, pkgs, ...}: {
-            imports = [ "${modulesPath}/virtualisation/amazon-image.nix" ];
-  	    ec2.hvm = true;
-            networking.firewall.allowedTCPPorts = [ 80 443 ];
+          ({
+            modulesPath,
+            pkgs,
+            ...
+          }: {
+            imports = ["${modulesPath}/virtualisation/amazon-image.nix"];
+            ec2.hvm = true;
+            networking.firewall.allowedTCPPorts = [80 443];
             services.nginx.enable = true;
+            services.nomad.enable = true;
           })
         ];
       };
