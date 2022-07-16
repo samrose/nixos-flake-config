@@ -24,6 +24,16 @@
             networking.firewall.allowedTCPPorts = [80 443];
             services.nginx.enable = true;
             services.nomad.enable = true;
+            services.nomad.settings = {
+              # A minimal config example:
+              server = {
+                enabled = true;
+                bootstrap_expect = 1; # for demo; no fault tolerance
+              };
+              client = {
+                enabled = true;
+              };
+            };
           })
         ];
       };
