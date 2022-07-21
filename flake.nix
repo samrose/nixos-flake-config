@@ -23,7 +23,6 @@
             ec2.hvm = true;
             networking.firewall.allowedTCPPorts = [80 443];
             services.nginx.enable = true;
-            services.nomad.enable = true;
           })
         ];
       };
