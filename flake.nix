@@ -8,10 +8,6 @@
     nixpkgs,
   }: let
     system = "x86_64-linux";
-    nix.extraOptions = ''
-      # restrict-eval = true
-      experimental-features = nix-command flakes
-    '';
   in {
     nixosConfigurations = {
       hydra-fractaldyn-server = nixpkgs.lib.nixosSystem {
@@ -27,6 +23,11 @@
             system.stateVersion = "22.05";
             ec2.hvm = true;
             networking.firewall.allowedTCPPorts = [80 443 3000];
+
+            nix.extraOptions = ''
+              # restrict-eval = true
+              experimental-features = nix-command flakes
+            '';
             security.acme.defaults = {
               email = "samuel.rose@gmail.com";
             };
