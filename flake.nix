@@ -32,7 +32,7 @@
 
               virtualHosts.hydra = {
                 enableACME = true;
-                forceSSL = true;
+                forceSSL = false;
                 locations = {
                   "/".proxyPass = "http://127.0.0.1:3000";
                 };
