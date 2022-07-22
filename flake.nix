@@ -34,14 +34,14 @@
                 enableACME = true;
                 forceSSL = true;
                 locations = {
-                  "/".proxyPass = "http://0.0.0.0:3000";
+                  "/".proxyPass = "http://localhost:3000";
                 };
                 serverName = "hydra.fractaldyn.io";
               };
             };
             services.hydra = {
               enable = true;
-              hydraURL = "http://localhost:3000";
+              hydraURL = "https://hydra.fractaldyn.io";
               notificationSender = "hydra@localhost";
               buildMachinesFiles = [];
               useSubstitutes = true;
