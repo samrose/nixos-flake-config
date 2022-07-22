@@ -10,7 +10,7 @@
     system = "x86_64-linux";
   in {
     nixosConfigurations = {
-      nomad-nginx-server = nixpkgs.lib.nixosSystem {
+      hydra-fractaldyn-server = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit inputs;};
         modules = [
@@ -20,10 +20,32 @@
             ...
           }: {
             imports = ["${modulesPath}/virtualisation/amazon-image.nix"];
-            ec2.hvm = true;
-            networking.firewall.allowedTCPPorts = [80 443];
-            services.nginx.enable = true;
-            services.nomad.enable = true;
+            system.stateVersion = "22.11";
+	    ec2.hvm = true;
+            networking.firewall.allowedTCPPorts = [80 443 3000];
+            security.acme.defaults = {
+              email = "samuel.rose@gmail.com";
+            };
+            security.acme.acceptTerms = true;
+            services.nginx = {
+              enable = true;
+
+              virtualHosts.hydra = {
+                enableACME = true;
+                forceSSL = true;
+                locations = {
+                  "/".proxyPass = "http://127.0.0.1:3000";
+                };
+                serverName = "hydra.fractaldyn.io";
+              };
+            };
+            services.hydra = {
+              enable = true;
+              hydraURL = "http://localhost:3000";
+              notificationSender = "hydra@localhost";
+              buildMachinesFiles = [];
+              useSubstitutes = true;
+            };
           })
         ];
       };
