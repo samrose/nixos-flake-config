@@ -8,6 +8,10 @@
     nixpkgs,
   }: let
     system = "x86_64-linux";
+    nix.extraOptions = ''
+      # restrict-eval = true
+      experimental-features = nix-command flakes
+    '';
   in {
     nixosConfigurations = {
       hydra-fractaldyn-server = nixpkgs.lib.nixosSystem {
@@ -21,17 +25,17 @@
           }: {
             imports = ["${modulesPath}/virtualisation/amazon-image.nix"];
             system.stateVersion = "22.05";
-	    ec2.hvm = true;
+            ec2.hvm = true;
             networking.firewall.allowedTCPPorts = [80 443 3000];
             security.acme.defaults = {
               email = "samuel.rose@gmail.com";
             };
             security.acme.acceptTerms = true;
             services.nginx = {
-                    recommendedProxySettings = true;
-      recommendedOptimisation = true;
-      recommendedTlsSettings = true;
-      recommendedGzipSettings = true;
+              recommendedProxySettings = true;
+              recommendedOptimisation = true;
+              recommendedTlsSettings = true;
+              recommendedGzipSettings = true;
               enable = true;
 
               virtualHosts."hydra.fractaldyn.io" = {
