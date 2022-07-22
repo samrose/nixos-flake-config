@@ -28,15 +28,18 @@
             };
             security.acme.acceptTerms = true;
             services.nginx = {
+                    recommendedProxySettings = true;
+      recommendedOptimisation = true;
+      recommendedTlsSettings = true;
+      recommendedGzipSettings = true;
               enable = true;
 
-              virtualHosts.hydra = {
+              virtualHosts."hydra.fractaldyn.io" = {
                 enableACME = true;
                 forceSSL = true;
                 locations = {
-                  "/".proxyPass = "http://0.0.0.0:3000";
+                  "/" = {proxyPass = "http://127.0.0.1:3000";};
                 };
-                serverName = "hydra.fractaldyn.io";
               };
             };
             services.hydra = {
