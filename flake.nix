@@ -1,7 +1,7 @@
 {
   description = "NixOS configuration";
 
-  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "nixpkgs/nixos-22.05";
 
   outputs = inputs @ {
     self,
@@ -20,7 +20,7 @@
             ...
           }: {
             imports = ["${modulesPath}/virtualisation/amazon-image.nix"];
-            system.stateVersion = "22.11";
+            system.stateVersion = "22.05";
 	    ec2.hvm = true;
             networking.firewall.allowedTCPPorts = [80 443 3000];
             security.acme.defaults = {
