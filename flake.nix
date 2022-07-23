@@ -25,7 +25,7 @@
             networking.firewall.allowedTCPPorts = [80 443 3000];
 
             nix.extraOptions = ''
-              # restrict-eval = true
+              restrict-eval = false
               experimental-features = nix-command flakes
             '';
             security.acme.defaults = {
