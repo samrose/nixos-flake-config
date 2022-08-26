@@ -8,9 +8,10 @@
     nixpkgs,
   }: let
     system = "x86_64-linux";
+    lib = nixpkgs.lib;
   in {
     nixosConfigurations = {
-      nomad-nginx-server = nixpkgs.lib.nixosSystem {
+      nomad-nginx-server = lib.makeOverridable nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit inputs;};
         modules = [
