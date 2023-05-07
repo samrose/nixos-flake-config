@@ -23,11 +23,11 @@
             networking.firewall.allowedTCPPorts = [80 443 8080 4646];
             users.extraUsers.root.password = ""; # oops
             users.mutableUsers = false;
-            virtualisation = {
-            diskSize = 8000; # MB
-              memorySize = 2048; # MB
-              writableStoreUseTmpfs = false;
-            };
+            # virtualisation = {
+            # diskSize = 8000; # MB
+            #   memorySize = 2048; # MB
+            #   writableStoreUseTmpfs = false;
+            # };
 
             services.openssh.enable = true;
             services.openssh.permitRootLogin = "yes";
