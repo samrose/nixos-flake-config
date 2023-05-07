@@ -21,6 +21,8 @@
             ...
           }: {
             networking.firewall.allowedTCPPorts = [80 443 8080 4646];
+            users.extraUsers.root.password = ""; # oops
+            users.mutableUsers = false;
             services.nginx.enable = true;
             services.nomad.enable = true;
             services.nomad.settings = {
