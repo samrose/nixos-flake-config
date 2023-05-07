@@ -23,6 +23,15 @@
             networking.firewall.allowedTCPPorts = [80 443 8080 4646];
             users.extraUsers.root.password = ""; # oops
             users.mutableUsers = false;
+            virtualisation = {
+            diskSize = 8000; # MB
+              memorySize = 2048; # MB
+              writableStoreUseTmpfs = false;
+            };
+
+            services.openssh.enable = true;
+            services.openssh.permitRootLogin = "yes";
+            networking.firewall.enable = true;
             services.nginx.enable = true;
             services.nomad.enable = true;
             services.nomad.settings = {
